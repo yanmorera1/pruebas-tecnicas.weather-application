@@ -22,16 +22,23 @@ WeatherApp.controller('UsuariosController', ['$scope', '$http', function ($scope
 
     $scope.ConsultarUsuario = function () {
         $scope.UsuarioID = gup('id', window.location.href);
-        $http.get('http://localhost/pruebasTecnicas/NetGrid/API/usuarios.php?action=consultarUsuario&id=' + $scope.UsuarioID).then(function (r) {
-            $scope.Usuario = r.data;
-            $scope.ConsultarTipoDocumento();
-            $scope.ConsultarTipoUsuario(function () {
-                setTimeout(() => {
-                    $('#TipoDocumentoID').val($scope.Usuario.TipoDocumentoID);
-                    $('#TipoUsuarioID').val($scope.Usuario.TipoUsuarioID);
-                }, 100);
-            });
-        })
+        if ($scope.UsuarioID != null) {
+            $http.get('http://localhost/pruebasTecnicas/NetGrid/API/usuarios.php?action=consultarUsuario&id=' + $scope.UsuarioID).then(function (r) {
+                $scope.Usuario = r.data;
+                $scope.ConsultarTipoDocumento();
+                $scope.ConsultarTipoUsuario(function () {
+                    setTimeout(() => {
+                        $('#TipoDocumentoID').val($scope.Usuario.TipoDocumentoID);
+                        $('#TipoUsuarioID').val($scope.Usuario.TipoUsuarioID);
+                    }, 100);
+                });
+            }); 
+            $('#Documento').attr('disabled', 'true');
+        } else {
+            $('#Documento').removeAttr('disabled');
+            
+        }
+        
     }
 
     $scope.ConsultarTipoDocumento = function () {
@@ -49,16 +56,20 @@ WeatherApp.controller('UsuariosController', ['$scope', '$http', function ($scope
         })
     }
 
-    $scope.Editar = function () {
+    $scope.NuevoUsuario = function () {
+        window.location.href = "#/nuevoUsuario"
+    }
+
+    $scope.EditarUsuario = function () {
         var usuario = $('#UsuariosTable').DataTable().rows({ selected: true }).data()[0];
         if (usuario != null) {
             window.location.href = "#/editarUsuario?id=" + usuario.UsuarioID;
         }
     }
 
-    $scope.EditarUsuario = function () {
+    $scope.Guardar = function () {
+        var action = '';
         var model = {
-            UsuarioID: $scope.UsuarioID,
             Nombres: $('#Nombres').val(),
             Apellidos: $('#Apellidos').val(),
             TipoDocumentoID: $('#TipoDocumentoID').val(),
@@ -67,31 +78,23 @@ WeatherApp.controller('UsuariosController', ['$scope', '$http', function ($scope
             TipoUsuarioID: $('#TipoUsuarioID').val(),
             Contrasenia: $('#Contrasenia').val(),
         }
-        $http.post('http://localhost/pruebasTecnicas/NetGrid/API/usuarios.php?action=actualizarUsuario', model).then(function (r) {
-            Swal.fire({
-                type: 'success',
-                title: 'Usuario Actualizado',
+        if ($scope.UsuarioID != null) {
+            model.UsuarioID = $scope.UsuarioID;
+            $http.post('http://localhost/pruebasTecnicas/NetGrid/API/usuarios.php?action=actualizarUsuario', model).then(function (r) {
+                Swal.fire({
+                    type: 'success',
+                    title: 'Usuario Actualizado',
+                });
             });
-        })
-    }
+        } else {
+            $http.post('http://localhost/pruebasTecnicas/NetGrid/API/usuarios.php?action=registrarUsuario', model).then(function (r) {
+                Swal.fire({
+                    type: 'success',
+                    title: 'Usuario Registrado',
+                });
+            });
+        }
 
-    $scope.Nuevo = function () {
-        var model = {
-            Nombres: $('#Nombres').val(),
-            Apellidos: $('#Apellidos').val(),
-            TipoDocumentoID: $('#TipoDocumentoID').val(),
-            NumeroDocumento: $('#NumeroDocumento').val(),
-            Email: $('#Email').val(),
-            Telefono: $('#Telefono').val(),
-            TipoUsuarioID: $('#TipoUsuarioID').val(),
-            Contrasenia: $('#Contrasenia').val(),
-        }
-        $http.post('http://localhost/pruebasTecnicas/NetGrid/API/usuarios.php?action=registrarUsuario', model).then(function (r) {
-            Swal.fire({
-                type: 'success',
-                title: 'Usuario Registrado',
-            });
-        })
     }
 }]);
 
