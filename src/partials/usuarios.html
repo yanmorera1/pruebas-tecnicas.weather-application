@@ -1,0 +1,31 @@
+<script src="../js/controllers/usuarios.js"></script>
+<div class="row mt-4 mb-3">
+    <div class="col-10">
+        <h1>Usuarios</h1>
+    </div>
+    <div class="col-2 ml-auto">
+        <button type="button" class="btn btn-warning" ng-click="Editar()">Editar</button>
+    </div>
+</div>
+<div class="row" ng-init="InitUsu()">
+    <table id="UsuariosTable" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Documento</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Nombres</td>
+                <td>Apellidos</td>
+                <td>NumeroDocumento</td>
+                <td>Email</td>
+                <td>Telefono</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

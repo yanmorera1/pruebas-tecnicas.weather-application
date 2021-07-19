@@ -1,0 +1,23 @@
+<script src="../js/controllers/clima.js"></script>
+<h1 class="mt-4 mb-3">Consulta de clima</h1>
+<div class="row" ng-init="Init()">
+    <div class="col-3">
+        <div class="mb-3">
+            <label for="TipoDocumentoID" class="form-label">País</label>
+            <select class="form-select" id="PaisID" ng-model="PaisID" ng-change="ConsultarCiudades()">
+                <option ng-repeat="p in Paises" value="{{p.PaisID}}">{{p.Nombre}}</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="TipoDocumentoID" class="form-label">Ciudad</label>
+            <select class="form-select" id="CiudadID" ng-model="CiudadID" ng-change="ConsultarClima()" disabled>
+                <option ng-repeat="c in Ciudades" value="{{c.Nombre}}">{{c.Nombre}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-8">
+        <i id="icono" class="fa fa-cloud" style="font-size: 100;"></i>
+        <h1 id="clima"></h1>
+    </div>
+</div>

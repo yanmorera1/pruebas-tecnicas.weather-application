@@ -1,0 +1,57 @@
+<script src="../js/controllers/usuarios.js"></script>
+<div class="row mt-4 mb-3">
+    <div class="col-10">
+        <h1>Usuario</h1>
+    </div>
+    <div class="col-2 ml-auto">
+        <button type="button" class="btn btn-primary" ng-click="Editar()"><i class="fa fa-save"></i></button>
+        <a type="button" class="btn btn-secondary" href="#/usuarios"><i class="fa fa-arrow-left"></i></a>
+    </div>
+</div>
+<div class="row" ng-init="ConsultarUsuario()">
+    <form action="">
+        <div class="row">
+            <div class="col 6">
+                <div class="mb-3">
+                    <label for="Nombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="Nombre" value="{{Usuario.Nombres}}"
+                        placeholder="Nombre">
+                </div>
+                <div class="mb-3">
+                    <label for="TipoDocumentoID" class="form-label">Tipo Documento</label>
+                    <select class="form-select" id="TipoDocumentoID">
+                        <option ng-repeat="td in TiposDocumento" value="{{td.TipoDocumentoID}}">{{td.Nombre}}</option>
+                    </select>
+                </div>   
+                <div class="mb-3">
+                    <label for="Email" class="form-label">Email</label>
+                    <input type="text" class="form-control" id="Email" value="{{Usuario.Email}}"
+                        placeholder="Email">
+                </div>        
+                <div class="mb-3">
+                    <label for="TipoUsuarioID" class="form-label">Tipo Usuario</label>
+                    <select class="form-select" id="TipoUsuarioID">
+                        <option ng-repeat="tu in TiposUsuario" value="{{tu.TipoUsuarioID}}">{{tu.Nombre}}</option>
+                    </select>
+                </div>        
+            </div>
+            <div class="col 6">
+                <div class="mb-3">
+                    <label for="Apellidos" class="form-label">Apellidos</label>
+                    <input type="text" class="form-control" id="Apellidos" value="{{Usuario.Apellidos}}"
+                        placeholder="Apellidos">
+                </div>
+                <div class="mb-3">
+                    <label for="Documento" class="form-label">Documento</label>
+                    <input type="text" class="form-control" id="Documento" value="{{Usuario.NumeroDocumento}}"
+                        placeholder="Apellidos">
+                </div>
+                <div class="mb-3">
+                    <label for="Telefono" class="form-label">Teléfono</label>
+                    <input type="text" class="form-control" id="Telefono" value="{{Usuario.Telefono}}"
+                        placeholder="Telefono">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
