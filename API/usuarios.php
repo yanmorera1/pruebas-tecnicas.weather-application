@@ -33,6 +33,16 @@ switch ($action) {
         header('Content-Type: application/json');
         print_r(json_encode(cerrarSesion()));
         break;
+    case 'registrarUsuario':
+        header('Content-Type: application/json');
+        $data = json_decode(utf8_encode(file_get_contents("php://input")), true);
+        print_r(json_encode(registrarUsuario($fluent, $data)));
+        break;
+    case 'actualizarUsuario':
+        header('Content-Type: application/json');
+        $data = json_decode(utf8_encode(file_get_contents("php://input")), true);
+        print_r(json_encode(actualizarUsuario($fluent, $data)));
+        break;
 }
 
 function consultarUsuarioLogin($fluent, $documento, $contrasenia)
@@ -88,4 +98,19 @@ function consultarTipoUsuario($fluent)
         ->from('tiposusuarios')
         ->orderBy("TipoUsuarioID DESC")
         ->fetchAll();
+}
+
+function registrarUsuario($fluent, $data)
+{
+    $fluent->insertInto('usuarios', $data)
+        ->execute();
+
+    return true;
+}
+
+function actualizarUsuario($fluent, $data)
+{
+    $fluent->update('usuarios')->set($data)->where('UsuarioID', $data['UsuarioID'])->execute();
+
+    return true;
 }

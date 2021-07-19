@@ -21,8 +21,8 @@ WeatherApp.controller('UsuariosController', ['$scope', '$http', function ($scope
     }
 
     $scope.ConsultarUsuario = function () {
-        var id = gup('id', window.location.href);
-        $http.get('http://localhost/pruebasTecnicas/NetGrid/API/usuarios.php?action=consultarUsuario&id=' + id).then(function (r) {
+        $scope.UsuarioID = gup('id', window.location.href);
+        $http.get('http://localhost/pruebasTecnicas/NetGrid/API/usuarios.php?action=consultarUsuario&id=' + $scope.UsuarioID).then(function (r) {
             $scope.Usuario = r.data;
             $scope.ConsultarTipoDocumento();
             $scope.ConsultarTipoUsuario(function () {
@@ -54,6 +54,44 @@ WeatherApp.controller('UsuariosController', ['$scope', '$http', function ($scope
         if (usuario != null) {
             window.location.href = "#/editarUsuario?id=" + usuario.UsuarioID;
         }
+    }
+
+    $scope.EditarUsuario = function () {
+        var model = {
+            UsuarioID: $scope.UsuarioID,
+            Nombres: $('#Nombres').val(),
+            Apellidos: $('#Apellidos').val(),
+            TipoDocumentoID: $('#TipoDocumentoID').val(),
+            Email: $('#Email').val(),
+            Telefono: $('#Telefono').val(),
+            TipoUsuarioID: $('#TipoUsuarioID').val(),
+            Contrasenia: $('#Contrasenia').val(),
+        }
+        $http.post('http://localhost/pruebasTecnicas/NetGrid/API/usuarios.php?action=actualizarUsuario', model).then(function (r) {
+            Swal.fire({
+                type: 'success',
+                title: 'Usuario Actualizado',
+            });
+        })
+    }
+
+    $scope.Nuevo = function () {
+        var model = {
+            Nombres: $('#Nombres').val(),
+            Apellidos: $('#Apellidos').val(),
+            TipoDocumentoID: $('#TipoDocumentoID').val(),
+            NumeroDocumento: $('#NumeroDocumento').val(),
+            Email: $('#Email').val(),
+            Telefono: $('#Telefono').val(),
+            TipoUsuarioID: $('#TipoUsuarioID').val(),
+            Contrasenia: $('#Contrasenia').val(),
+        }
+        $http.post('http://localhost/pruebasTecnicas/NetGrid/API/usuarios.php?action=registrarUsuario', model).then(function (r) {
+            Swal.fire({
+                type: 'success',
+                title: 'Usuario Registrado',
+            });
+        })
     }
 }]);
 
