@@ -32,13 +32,13 @@ WeatherApp.controller('UsuariosController', ['$scope', '$http', function ($scope
                         $('#TipoUsuarioID').val($scope.Usuario.TipoUsuarioID);
                     }, 100);
                 });
-            }); 
+            });
             $('#Documento').attr('disabled', 'true');
         } else {
             $('#Documento').removeAttr('disabled');
-            
+
         }
-        
+
     }
 
     $scope.ConsultarTipoDocumento = function () {
@@ -64,6 +64,31 @@ WeatherApp.controller('UsuariosController', ['$scope', '$http', function ($scope
         var usuario = $('#UsuariosTable').DataTable().rows({ selected: true }).data()[0];
         if (usuario != null) {
             window.location.href = "#/editarUsuario?id=" + usuario.UsuarioID;
+        }
+    }
+
+    $scope.EliminarUsuario = function () {
+        var usuario = $('#UsuariosTable').DataTable().rows({ selected: true }).data()[0];
+
+        if (usuario != null) {
+            Swal.fire({
+                type: 'info',
+                title: '¿Estas segudo de eliminar el usuario?',
+                showCancelButton: true,
+                confirmButtonText: `Si`,
+                denyButtonText: `No`,
+            }).then((result) => {
+                if (result.value) {
+                    $http.post('http://localhost/pruebasTecnicas/NetGrid/API/usuarios.php?action=eliminarUsuario?id=', usuario.UsuarioID).then(function (r) {
+                        Swal.fire({
+                            type: 'success',
+                            title: 'Usuario Eliminado',
+                        });
+                    });
+                } else if (result.isDenied) {
+                    Swal.close();
+                }
+            })
         }
     }
 

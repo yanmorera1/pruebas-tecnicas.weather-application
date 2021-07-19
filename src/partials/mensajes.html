@@ -1,0 +1,27 @@
+<script src="../js/controllers/mensajes.js"></script>
+<div class="row mt-4 mb-3">
+    <div class="col-10">
+        <h1>Mensajes</h1>
+    </div>
+    <div class="col-2 ml-auto">
+        <button type="button" class="btn btn-primary" ng-click="NuevoMensaje()"><i class="fa fa-plus"></i></button>
+    </div>
+</div>
+<div class="row" ng-init="InitMensajes()">
+    <table id="MensajesTable" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Mensaje</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Mensaje</td>
+                <td>Nombres</td>
+                <td>Apellidos</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

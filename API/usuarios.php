@@ -43,6 +43,10 @@ switch ($action) {
         $data = json_decode(utf8_encode(file_get_contents("php://input")), true);
         print_r(json_encode(actualizarUsuario($fluent, $data)));
         break;
+    case 'eliminarUsuario':
+        header('Content-Type: application/json');
+        print_r(json_encode(eliminarUsuario($fluent, $_GET['id'])));
+        break;
 }
 
 function consultarUsuarioLogin($fluent, $documento, $contrasenia)
@@ -112,5 +116,11 @@ function actualizarUsuario($fluent, $data)
 {
     $fluent->update('usuarios')->set($data)->where('UsuarioID', $data['UsuarioID'])->execute();
 
+    return true;
+}
+
+function eliminarUsuario($fluent, $id)
+{
+    $fluent->deleteFrom('usuarios')->where('UsuarioID', $id)->execute();
     return true;
 }

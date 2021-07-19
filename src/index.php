@@ -30,6 +30,7 @@ $tipoUsuarioAdmin = json_decode($_SESSION["tipoUsuarioAdmin"]);
 </head>
 
 <body>
+  <input id="UsuarioID" type="hidden" value="<?php echo $usuario->UsuarioID?>">
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Weather</a>
@@ -46,6 +47,9 @@ $tipoUsuarioAdmin = json_decode($_SESSION["tipoUsuarioAdmin"]);
             <a class="nav-link" href="#/usuarios">Usuarios</a>
           </li>
           <?php } ?>
+          <li class="nav-item">
+            <a class="nav-link" href="#/mensajes">Mensajes</a>
+          </li>
         </ul>
         <ul class="navbar-nav ml-auto">
           <li class="align-items-center d-flex nav-item text-light">
@@ -84,6 +88,7 @@ $tipoUsuarioAdmin = json_decode($_SESSION["tipoUsuarioAdmin"]);
 
   <script src="../js/controllers/usuarios.js"></script>
   <script src="../js/controllers/clima.js"></script>
+  <script src="../js/controllers/mensajes.js"></script>
 </body>
 
 </html>

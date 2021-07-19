@@ -26,6 +26,14 @@ var app = angular.module('weather', [
           templateUrl: 'partials/nuevoUsuario.html',
           controller: 'UsuariosController'
         }).
+        when('/mensajes', {
+          templateUrl: 'partials/mensajes.html',
+          controller: 'MensajesController'
+        }).
+        when('/nuevoMensaje', {
+          templateUrl: 'partials/nuevoMensaje.html',
+          controller: 'MensajesController'
+        }).
         otherwise({
           redirectTo: '/'
         });
